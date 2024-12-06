@@ -46,6 +46,11 @@ public class Tiempo {
     public void setCoberturaNubosa(String coberturaNubosa) {
         this.coberturaNubosa = coberturaNubosa;
     }
+    @Override
+    public String toString() {
+        return "Tiempo [estadoCielo=" + estadoCielo + ", temperatura=" + temperatura + ", viento=" + viento
+                + ", humedad=" + humedad + ", coberturaNubosa=" + coberturaNubosa + "]";
+    }
 
     
 }
