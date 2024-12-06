@@ -2,6 +2,7 @@ package org.example.controller;
 
 import javax.swing.JOptionPane;
 
+import org.example.Main;
 import org.example.model.Tiempo;
 import org.example.repository.TiempoRepository;
 
@@ -17,7 +18,7 @@ public class TiempoController {
             return this.tiempoRepository.getTiempo(location);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al conseguir el tiempo");
-            e.printStackTrace();
+           System.out.println(Main.ANSI_RED+e.getMessage()+Main.ANSI_RESET);
 
         }
         return null;

@@ -13,48 +13,79 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class TiempoRepository {
 
     //Api 
-    private  static final String API_URL = "https://www.meteogalicia.gal/web/rss-georss-json";
+    private  static final String API_URL = "https://servizos.meteogalicia.gal/mix/rest/forecast/consulta";
     private static final String API_KEY ="MWXPF8V59rh5BX8G983Bj4aWCm08aalDegD98fIKni4C2lK5jJnMIhA11lbde1MF";
 
         //Metodo para conseguir el Tiempo
-        public Tiempo getTiempo(String location) throws Exception{
-
-            //construccion de la url
-            String urlString = API_URL + "?location=" + location + "&API_KEY=" + API_KEY;
-            URL url = new URL(urlString);
-            
-            //Configuración de la conexión
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setRequestProperty("x-api-key", API_KEY);
-
-            //Vemos la respuesta que conseguimos 
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-           //Leemos la respuesta y constuimos el objeto json
-            String line;
-            while ((line = br.readLine()) != null) {
-                response.append(line);
+        public Tiempo getTiempo(String location) throws Exception {
+            // Endpoint para buscar el ID de la localidad
+            String findPlaceURL = "https://servizos.meteogalicia.gal/apiv4/findPlaces?name=" + location;
+            URL findPlaceEndpoint = new URL(findPlaceURL);
+        
+            // Conexión para obtener el ID de la localidad
+            HttpURLConnection findPlaceConnection = (HttpURLConnection) findPlaceEndpoint.openConnection();
+            findPlaceConnection.setRequestMethod("GET");
+            findPlaceConnection.setRequestProperty("x-api-key", API_KEY);
+        
+            if (findPlaceConnection.getResponseCode() != 200) {
+                throw new Exception("Error al buscar ID de la localidad: " + findPlaceConnection.getResponseCode());
             }
-            //Cerramos la conexion
-            br.close();
-            //Parseamos el Json que llega
+        
+            // Leer respuesta para obtener ID de la localidad
+            BufferedReader brFindPlace = new BufferedReader(new InputStreamReader(findPlaceConnection.getInputStream()));
+            StringBuilder findPlaceResponse = new StringBuilder();
+            String line;
+            while ((line = brFindPlace.readLine()) != null) {
+                findPlaceResponse.append(line);
+            }
+            brFindPlace.close();
+        
+            // Parsear JSON de búsqueda de localidad
             ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(response.toString());
-            
-
-            //Cogemos los datos que queremos 
-            String estadoCielo = root.path("estado_cielo").asText();
-            String temperatura = root.path("temperatura").asText();
-            String viento = root.path("viento").asText();
-            String humedad = root.path("humedad").asText();
-            String coberturaNubosa = root.path("cobertura_nubosa").asText();
-
-            //Creamos el objeto Tiempo
-            Tiempo tiempo = new Tiempo(estadoCielo, temperatura, viento, humedad, coberturaNubosa);
-            
-            return tiempo;
+            JsonNode findPlaceRoot = mapper.readTree(findPlaceResponse.toString());
+            String locationID = findPlaceRoot.path("id").asText(); // Ajustar clave según respuesta
+        
+            if (locationID.isEmpty()) {
+                throw new Exception("No se encontró la localidad: " + location);
+            }
+        
+            // Endpoint para obtener el tiempo usando el ID de la localidad
+            String weatherURL = "https://servizos.meteogalicia.gal/mix/rest/forecast/consulta?locationID=" + locationID;
+            URL weatherEndpoint = new URL(weatherURL);
+        
+            HttpURLConnection weatherConnection = (HttpURLConnection) weatherEndpoint.openConnection();
+            weatherConnection.setRequestMethod("GET");
+            weatherConnection.setRequestProperty("x-api-key", API_KEY);
+        
+            if (weatherConnection.getResponseCode() != 200) {
+                throw new Exception("Error al conseguir el tiempo: " + weatherConnection.getResponseCode());
+            }
+        
+            // Leer respuesta de la API del tiempo
+            BufferedReader brWeather = new BufferedReader(new InputStreamReader(weatherConnection.getInputStream()));
+            StringBuilder weatherResponse = new StringBuilder();
+            while ((line = brWeather.readLine()) != null) {
+                weatherResponse.append(line);
+            }
+            brWeather.close();
+        
+            // Depurar el JSON recibido
+            System.out.println("JSON del tiempo: " + weatherResponse.toString());
+        
+            // Parsear el JSON del tiempo
+            JsonNode weatherRoot = mapper.readTree(weatherResponse.toString());
+        
+            // Ajustar las claves según la respuesta real de la API
+            String estadoCielo = weatherRoot.path("sky_state").asText(); // Ejemplo
+            String temperatura = weatherRoot.path("temperature").asText(); // Ejemplo
+            String viento = weatherRoot.path("wind_speed").asText(); // Ejemplo
+            String humedad = weatherRoot.path("humidity").asText(); // Ejemplo
+            String coberturaNubosa = weatherRoot.path("cloud_cover").asText(); // Ejemplo
+        
+            // Crear y devolver el objeto Tiempo
+            return new Tiempo(estadoCielo, temperatura, viento, humedad, coberturaNubosa);
         }
+        
 
         
  }
