@@ -26,7 +26,7 @@ public class TiempoRepository {
             //Configuración de la conexión
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("accept", "application/json");
+            connection.setRequestProperty("x-api-key", API_KEY);
 
             //Vemos la respuesta que conseguimos 
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -41,6 +41,7 @@ public class TiempoRepository {
             //Parseamos el Json que llega
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response.toString());
+            
 
             //Cogemos los datos que queremos 
             String estadoCielo = root.path("estado_cielo").asText();
