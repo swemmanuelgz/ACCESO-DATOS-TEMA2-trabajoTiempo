@@ -17,7 +17,7 @@ public class Main {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
     public static void main(String[] args) {
-        String location = "Vigo";
+        String location = "Santiago";
         Tiempo tiempo = new TiempoController().getTiempo(location);
         System.out.println(tiempo.toString());
         JOptionPane.showMessageDialog(null, tiempo.toString());

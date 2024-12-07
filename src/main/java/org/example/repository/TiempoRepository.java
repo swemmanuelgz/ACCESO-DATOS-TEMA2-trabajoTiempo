@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.example.Main;
 import org.example.model.Tiempo;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -19,7 +20,7 @@ public class TiempoRepository {
         //Metodo para conseguir el Tiempo
         public Tiempo getTiempo(String location) throws Exception {
             // Endpoint para buscar el ID de la localidad
-            String findPlaceURL = "https://servizos.meteogalicia.gal/apiv4/findPlaces?name=" + location;
+            String findPlaceURL =  "https://servizos.meteogalicia.gal/apiv4/findPlaces?location=" + location + "&API_KEY=" + API_KEY;
             URL findPlaceEndpoint = new URL(findPlaceURL);
         
             // Conexión para obtener el ID de la localidad
@@ -39,18 +40,28 @@ public class TiempoRepository {
                 findPlaceResponse.append(line);
             }
             brFindPlace.close();
+            
         
             // Parsear JSON de búsqueda de localidad
             ObjectMapper mapper = new ObjectMapper();
             JsonNode findPlaceRoot = mapper.readTree(findPlaceResponse.toString());
-            String locationID = findPlaceRoot.path("id").asText(); // Ajustar clave según respuesta
-        
+            System.out.println(Main.ANSI_BLUE+"JSON de búsqueda de localidad: "+findPlaceRoot+Main.ANSI_RESET);
+            JsonNode places = findPlaceRoot.path("features");
+
+            if (places.isEmpty()||!places.isArray()) {
+                throw new Exception("No se encontró la localidad: " + location);
+                
+            }
+
+            String locationID = places.get(0).path("properties").path("id").asText();
+
+                System.out.println(Main.ANSI_BLUE+findPlaceRoot.toString()+Main.ANSI_RESET);
             if (locationID.isEmpty()) {
                 throw new Exception("No se encontró la localidad: " + location);
             }
         
             // Endpoint para obtener el tiempo usando el ID de la localidad
-            String weatherURL = "https://servizos.meteogalicia.gal/mix/rest/forecast/consulta?locationID=" + locationID;
+            String weatherURL = "https://servizos.meteogalicia.gal/mix/rest/forecast/consulta?locationID=" + locationID+"&API_KEY=" + API_KEY;
             URL weatherEndpoint = new URL(weatherURL);
         
             HttpURLConnection weatherConnection = (HttpURLConnection) weatherEndpoint.openConnection();
