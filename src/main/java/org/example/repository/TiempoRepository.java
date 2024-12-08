@@ -97,7 +97,7 @@ public class TiempoRepository {
         
             // Parsear el JSON del tiempo
             JsonNode weatherRoot = mapper.readTree(weatherResponse.toString());
-            System.out.println(Main.ANSI_BLUE+"JSON del tiempo: "+weatherRoot+Main.ANSI_RESET);
+            //System.out.println(Main.ANSI_BLUE+"JSON del tiempo: "+weatherRoot+Main.ANSI_RESET);
             JsonNode variables = weatherRoot.path("variables");
         
             // Ajustar las claves según la respuesta real de la API
