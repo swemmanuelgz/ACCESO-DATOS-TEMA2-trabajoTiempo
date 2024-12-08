@@ -19,6 +19,7 @@ public class Main {
     public static void main(String[] args) {
         String location = "Santiago";
         Tiempo tiempo = new TiempoController().getTiempo(location);
+        //Suso haz la inyerfaz donde se pueda introducir la localizacion y muestre su tiempo como resultado
         System.out.println(tiempo.toString());
         JOptionPane.showMessageDialog(null, tiempo.toString());
     }
