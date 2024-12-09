@@ -2,6 +2,7 @@ package org.example.model;
 
 
 public class Tiempo {
+    private String localidad;
     private  String estadoCielo;
     private String temperatura;
     private String viento;
@@ -9,12 +10,13 @@ public class Tiempo {
     private String coberturaNubosa;
     public Tiempo() {
     }
-    public Tiempo(String estadoCielo, String temperatura, String viento, String humedad, String coberturaNubosa) {
+    public Tiempo(String localidad,String estadoCielo, String temperatura, String viento, String humedad, String coberturaNubosa) {
         this.estadoCielo = estadoCielo;
         this.temperatura = temperatura;
         this.viento = viento;
         this.humedad = humedad;
         this.coberturaNubosa = coberturaNubosa;
+        this.localidad = localidad;
     }
     public String getEstadoCielo() {
         return estadoCielo;
@@ -34,6 +36,13 @@ public class Tiempo {
     public void setViento(String viento) {
         this.viento = viento;
     }
+    public String getLocalidad() {
+        return localidad;
+    }
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+    
     public String getHumedad() {
         return humedad;
     }
@@ -51,6 +60,7 @@ public class Tiempo {
         return "Tiempo [estadoCielo=" + estadoCielo + "\n temperatura=" + temperatura + "\n viento=" + viento
                 + "\n humedad=" + humedad + "\n coberturaNubosa=" + coberturaNubosa + "]";
     }
+    
 
     
 }

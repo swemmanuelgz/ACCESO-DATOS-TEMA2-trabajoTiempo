@@ -4,6 +4,10 @@
  */
 package org.example.view;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.example.generators.CsvGenerator;
 import org.example.model.Tiempo;
 import org.example.repository.TiempoRepository;
@@ -17,6 +21,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form PantallaPrincipal
      */
+    ArrayList <Tiempo> listTiempo = new ArrayList<>();
     public PantallaPrincipal() {
         initComponents();
     }
@@ -29,7 +34,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+        
         jPanel1 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
@@ -228,6 +233,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         // Obtener la información del tiempo para la ciudad seleccionada
         Tiempo tiempo = tiempoRepository.getTiempo(selectedCity);
+        listTiempo.add(tiempo);
 
         // Actualizar los campos de texto con los valores obtenidos
         estadoCielo.setText(tiempo.getEstadoCielo());
@@ -249,7 +255,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_humedadActionPerformed
 
     private void btnDescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarActionPerformed
-        generateCSV();//as
+        CsvGenerator generador = new CsvGenerator();
+        try {
+            generador.generateCSV(listTiempo, "Datos_Climas");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnDescargarActionPerformed
 
     /**

@@ -111,7 +111,7 @@ public class TiempoRepository {
             String coberturaNubosa = getFirstValue(variables, "cloud_area_fraction"); 
         
             // Crear y devolver el objeto Tiempo
-            return new Tiempo(estadoCielo, temperatura, viento, humedad, coberturaNubosa);
+            return new Tiempo(location,estadoCielo, temperatura, viento, humedad, coberturaNubosa);
         }
         public String getFirstValue(JsonNode jsonNode, String nombreVariable) {
             for (JsonNode variable : jsonNode) { // Iterar sobre las variables
