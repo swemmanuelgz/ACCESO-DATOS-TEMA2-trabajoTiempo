@@ -48,8 +48,8 @@ public class Tiempo {
     }
     @Override
     public String toString() {
-        return "Tiempo [estadoCielo=" + estadoCielo + ", temperatura=" + temperatura + ", viento=" + viento
-                + ", humedad=" + humedad + ", coberturaNubosa=" + coberturaNubosa + "]";
+        return "Tiempo [estadoCielo=" + estadoCielo + "\n temperatura=" + temperatura + "\n viento=" + viento
+                + "\n humedad=" + humedad + "\n coberturaNubosa=" + coberturaNubosa + "]";
     }
 
     
