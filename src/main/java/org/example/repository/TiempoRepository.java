@@ -120,7 +120,11 @@ public class TiempoRepository {
                     if (values.isArray() && values.size() > 0) {
                         // Tomar el primer valor disponible
                         String valor = values.get(0).path("value").asText("No disponible");
+                        if (nombreVariable.equals("wind")) {
+                            valor = values.get(0).path("directionValue").asText("No disponible");
+                        }
                         System.out.println(Main.ANSI_BLUE + "Valor de la variable '" + nombreVariable + "': " + valor + Main.ANSI_RESET);
+                       
                         return valor;
                     }
                 }
