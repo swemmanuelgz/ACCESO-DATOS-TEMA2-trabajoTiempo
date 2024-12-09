@@ -249,7 +249,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_humedadActionPerformed
 
     private void btnDescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarActionPerformed
-        generateCSV();
+        generateCSV();//as
     }//GEN-LAST:event_btnDescargarActionPerformed
 
     /**
