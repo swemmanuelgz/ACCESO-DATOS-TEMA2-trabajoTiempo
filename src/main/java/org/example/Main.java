@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import org.example.controller.TiempoController;
 import org.example.model.Tiempo;
+import org.example.view.PantallaPrincipal;
 
 public class Main {
     //Codigos de colores ANSI
@@ -22,5 +23,8 @@ public class Main {
         //Suso haz la inyerfaz donde se pueda introducir la localizacion y muestre su tiempo como resultado
         System.out.println(tiempo.toString());
         JOptionPane.showMessageDialog(null, tiempo.toString());
+        PantallaPrincipal pantalla = new PantallaPrincipal();
+        pantalla.setVisible(true);
+        pantalla.setLocationRelativeTo(null);
     }
 }
