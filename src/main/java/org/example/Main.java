@@ -1,9 +1,5 @@
 package org.example;
 
-import javax.swing.JOptionPane;
-
-import org.example.controller.TiempoController;
-import org.example.model.Tiempo;
 import org.example.view.PantallaPrincipal;
 
 public class Main {
@@ -18,11 +14,7 @@ public class Main {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
     public static void main(String[] args) {
-        String location = "Santiago";
-        Tiempo tiempo = new TiempoController().getTiempo(location);
-        //Suso haz la inyerfaz donde se pueda introducir la localizacion y muestre su tiempo como resultado
-        System.out.println(tiempo.toString());
-        JOptionPane.showMessageDialog(null, tiempo.toString());
+        
         PantallaPrincipal pantalla = new PantallaPrincipal();
         pantalla.setVisible(true);
         pantalla.setLocationRelativeTo(null);

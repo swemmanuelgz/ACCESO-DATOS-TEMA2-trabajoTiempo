@@ -97,22 +97,42 @@ public class TiempoRepository {
         
             // Parsear el JSON del tiempo
             JsonNode weatherRoot = mapper.readTree(weatherResponse.toString());
+
             //System.out.println(Main.ANSI_BLUE+"JSON del tiempo: "+weatherRoot+Main.ANSI_RESET);
-            JsonNode variables = weatherRoot.path("variables");
-            
-            
+            JsonNode variables = weatherRoot.path("features").path(0).path("properties").path("days").path(0).path("variables");
+            System.out.println(Main.ANSI_BLUE+"\nVariables: "+variables+Main.ANSI_RESET);
         
             // Ajustar las claves según la respuesta real de la API
-            String estadoCielo = weatherRoot.path("sky_state").asText("No disponible"); 
-            String temperatura = weatherRoot.path("temperature").asText("No disponible"); 
-            String viento = weatherRoot.path("wind_speed").asText("No disponible"); 
-            String humedad = weatherRoot.path("relative_humidity").asText("No disponible"); 
-            String coberturaNubosa = weatherRoot.path("cloud_area_fraction").asText("No disponible"); 
+            
+            String estadoCielo = getFirstValue(variables, "sky_state");
+            String temperatura = getFirstValue(variables, "temperature"); 
+            String viento = getFirstValue(variables, "wind"); 
+            String humedad = getFirstValue(variables, "relative_humidity"); 
+            String coberturaNubosa = getFirstValue(variables, "cloud_area_fraction"); 
         
             // Crear y devolver el objeto Tiempo
             return new Tiempo(estadoCielo, temperatura, viento, humedad, coberturaNubosa);
         }
-        
+        public String getFirstValue(JsonNode jsonNode, String nombreVariable) {
+            for (JsonNode variable : jsonNode) { // Iterar sobre las variables
+                if (variable.path("name").asText().equals(nombreVariable)) {
+                    JsonNode values = variable.path("values");
+                    if (values.isArray() && values.size() > 0) {
+                        // Tomar el primer valor disponible
+                        String valor = values.get(0).path("value").asText("No disponible");
+                        if (nombreVariable.equals("wind")) {
+                            valor = values.get(0).path("directionValue").asText("No disponible");
+                        }
+                        System.out.println(Main.ANSI_BLUE + "Valor de la variable '" + nombreVariable + "': " + valor + Main.ANSI_RESET);
+                       
+                        return valor;
+                    }
+                }
+            }
+            // Si no encuentra la variable, retorna un error
+            System.out.println(Main.ANSI_RED + "Variable '" + nombreVariable + "' no encontrada o sin valores." + Main.ANSI_RESET);
+            return "No disponible";
+        }
         
  }
     
