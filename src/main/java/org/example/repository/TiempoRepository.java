@@ -97,13 +97,14 @@ public class TiempoRepository {
         
             // Parsear el JSON del tiempo
             JsonNode weatherRoot = mapper.readTree(weatherResponse.toString());
+
             //System.out.println(Main.ANSI_BLUE+"JSON del tiempo: "+weatherRoot+Main.ANSI_RESET);
-            JsonNode variables = weatherRoot.path("variables");
-            
-            
+            JsonNode variables = weatherRoot.path("features").path(0).path("properties").path("days").path(0).path("variables");
+            System.out.println(Main.ANSI_BLUE+"\nVariables: "+variables+Main.ANSI_RESET);
         
             // Ajustar las claves según la respuesta real de la API
-            String estadoCielo = weatherRoot.path("sky_state").asText("No disponible"); 
+            getFirstValue(variables, "temperature");
+            String estadoCielo = weatherRoot.path(0).path("values").path(0).path("value").path("sky_state").asText("No disponible");
             String temperatura = weatherRoot.path("temperature").asText("No disponible"); 
             String viento = weatherRoot.path("wind_speed").asText("No disponible"); 
             String humedad = weatherRoot.path("relative_humidity").asText("No disponible"); 
@@ -112,7 +113,17 @@ public class TiempoRepository {
             // Crear y devolver el objeto Tiempo
             return new Tiempo(estadoCielo, temperatura, viento, humedad, coberturaNubosa);
         }
-        
-        
+     public String  getFirstValue(JsonNode jsonNode,String nombreVariable) {
+        int contador = 0;
+        for (int i = 0; i < jsonNode.size(); i++) {
+            if (jsonNode.get(i).path("name").asText().equals(nombreVariable)) {
+                contador = i;
+                System.out.println(Main.ANSI_BLUE+"Valor de la variable: "+jsonNode.get(i).path("name").path(i).path("values").path(0).path("value").toString()+Main.ANSI_RESET);
+                return jsonNode.get(i).path("name").path(i).path("values").path(0).path("value").toString();
+            }
+        }
+        System.out.println(Main.ANSI_PURPLE+jsonNode.get(contador).path("name").path(contador).path("values").path(0).path("value").toString()+Main.ANSI_RESET);
+        return "error";
+     }
  }
     
