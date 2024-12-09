@@ -4,6 +4,7 @@
  */
 package org.example.view;
 
+import org.example.generators.CsvGenerator;
 import org.example.model.Tiempo;
 import org.example.repository.TiempoRepository;
 
@@ -43,7 +44,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnDescargar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,11 +107,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabel8.setText("Clima Galego");
         jLabel8.setToolTipText("");
 
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jButton1.setText("Descargar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDescargar.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnDescargar.setText("Descargar");
+        btnDescargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDescargarActionPerformed(evt);
             }
         });
 
@@ -157,7 +158,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                             .addGap(84, 84, 84)
                             .addComponent(humedad, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnDescargar)
                         .addGap(56, 56, 56))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -190,7 +191,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(cobertura, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnDescargar)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -247,9 +248,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_humedadActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnDescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarActionPerformed
+        generateCSV();
+    }//GEN-LAST:event_btnDescargarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,10 +288,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDescargar;
     private javax.swing.JTextField cobertura;
     private javax.swing.JTextField estadoCielo;
     private javax.swing.JTextField humedad;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
