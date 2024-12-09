@@ -154,14 +154,15 @@
               <Font name="Times New Roman" size="12" style="1"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="7">
-                <StringItem index="0" value="A Coru&#xf1;a"/>
-                <StringItem index="1" value="Lugo"/>
-                <StringItem index="2" value="Ourense"/>
-                <StringItem index="3" value="Pontevedra"/>
-                <StringItem index="4" value="Vigo"/>
-                <StringItem index="5" value="Santiago de Compostela"/>
-                <StringItem index="6" value="Ferrol"/>
+              <StringArray count="8">
+                <StringItem index="0" value="Selecciona cidade"/>
+                <StringItem index="1" value="A Coru&#xf1;a"/>
+                <StringItem index="2" value="Lugo"/>
+                <StringItem index="3" value="Ourense"/>
+                <StringItem index="4" value="Pontevedra"/>
+                <StringItem index="5" value="Vigo"/>
+                <StringItem index="6" value="Santiago de Compostela"/>
+                <StringItem index="7" value="Ferrol"/>
               </StringArray>
             </Property>
           </Properties>
