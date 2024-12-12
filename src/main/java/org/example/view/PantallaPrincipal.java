@@ -6,7 +6,6 @@ package org.example.view;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.example.generators.CsvGenerator;
 import org.example.model.Tiempo;
@@ -225,8 +224,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_estadoCieloActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-    String selectedCity =  jComboBox1.getSelectedItem().toString();
-
+        //Operador ternario
+        String selectedCity =  jComboBox1.getSelectedItem().toString().equalsIgnoreCase("A Coruña") ? "coru" : jComboBox1.getSelectedItem().toString();
+    System.out.println(selectedCity);
+        
     try {
         // Crear una instancia del repositorio
         TiempoRepository tiempoRepository = new TiempoRepository();

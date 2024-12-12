@@ -28,8 +28,8 @@ public class TiempoRepository {
             // Conexión para obtener el ID de la localidad
             HttpURLConnection findPlaceConnection = (HttpURLConnection) findPlaceEndpoint.openConnection();
             findPlaceConnection.setRequestMethod("GET");
-            findPlaceConnection.setRequestProperty("x-api-key", API_KEY);
-        
+            findPlaceConnection.setRequestProperty("x-api-key", API_KEY); 
+
             if (findPlaceConnection.getResponseCode() != 200) {
                 throw new Exception("Error al buscar ID de la localidad: " + findPlaceConnection.getResponseCode());
             }
@@ -37,6 +37,7 @@ public class TiempoRepository {
             // Leer respuesta para obtener ID de la localidad
             BufferedReader brFindPlace = new BufferedReader(new InputStreamReader(findPlaceConnection.getInputStream()));
             StringBuilder findPlaceResponse = new StringBuilder();
+           // System.out.println(Main.ANSI_BLUE+"Respuesta de búsqueda de localidad: "+findPlaceResponse+Main.ANSI_RESET);
             String line;
             while ((line = brFindPlace.readLine()) != null) {
                 findPlaceResponse.append(line);
