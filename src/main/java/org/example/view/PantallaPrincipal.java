@@ -225,7 +225,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_estadoCieloActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-    String selectedCity = (String) jComboBox1.getSelectedItem();
+    String selectedCity =  jComboBox1.getSelectedItem().toString();
 
     try {
         // Crear una instancia del repositorio
@@ -257,7 +257,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void btnDescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarActionPerformed
         CsvGenerator generador = new CsvGenerator();
         try {
-            generador.generateCSV(listTiempo, "Datos_Climas");
+            generador.generateCSV(listTiempo, "Datos_Climas.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }
