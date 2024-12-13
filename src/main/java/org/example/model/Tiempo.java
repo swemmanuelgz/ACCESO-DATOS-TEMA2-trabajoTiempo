@@ -1,6 +1,6 @@
 package org.example.model;
 
-
+//Clase Tiempo con atributos y getters y setters y metodos y toString
 public class Tiempo {
     private String localidad;
     private  String estadoCielo;

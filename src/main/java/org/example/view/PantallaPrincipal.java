@@ -20,6 +20,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form PantallaPrincipal
      */
+    //lISTA DE TIEMPOS
     ArrayList <Tiempo> listTiempo = new ArrayList<>();
     public PantallaPrincipal() {
         initComponents();
@@ -55,7 +56,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         jComboBox1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona cidade", "A Coruña", "Lugo", "Ourense", "Pontevedra", "Vigo", "Santiago", "Ferrol" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona cidade", "A Coruña", "Lugo", "Ourense", "Pontevedra", "Vigo", "Santiago", "Ferrol" }));//Ciudades a buscar en el combobox
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -234,6 +235,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         // Obtener la información del tiempo para la ciudad seleccionada
         Tiempo tiempo = tiempoRepository.getTiempo(selectedCity);
+        // Agregar la información al ArrayList
         listTiempo.add(tiempo);
 
         // Actualizar los campos de texto con los valores obtenidos
@@ -256,6 +258,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_humedadActionPerformed
 
     private void btnDescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarActionPerformed
+        //Generamos el CSV en base al ArrayList
         CsvGenerator generador = new CsvGenerator();
         try {
             generador.generateCSV(listTiempo, "Datos_Climas.csv");

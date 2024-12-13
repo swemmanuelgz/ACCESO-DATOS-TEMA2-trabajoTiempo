@@ -18,7 +18,7 @@ public class CsvGenerator {
 
         // Escribir los datos de los tiempos en el archivo
         for (Tiempo tiempo : tiempos) {
-            csvWriter.append(escapeCsv(tiempo.getLocalidad())).append(";") // Campo de localidad
+            csvWriter.append(escapeCsv(tiempo.getLocalidad())).append(";") // Campo de localidad y el resto de campos a mostrar
                     .append(escapeCsv(tiempo.getEstadoCielo())).append(";")
                     .append(escapeCsv(tiempo.getTemperatura())).append(";")
                     .append(escapeCsv(tiempo.getViento())).append(";")

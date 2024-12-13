@@ -7,8 +7,9 @@ import org.example.model.Tiempo;
 import org.example.repository.TiempoRepository;
 
 public class TiempoController {
+    // repositorio
     private final TiempoRepository tiempoRepository ;
-
+    //Constructor
     public TiempoController() {
         this.tiempoRepository = new TiempoRepository();
     }
@@ -17,6 +18,7 @@ public class TiempoController {
         try {
             return this.tiempoRepository.getTiempo(location);
         } catch (Exception e) {
+            //Excepcion en caso de error
             JOptionPane.showMessageDialog(null, "Error al conseguir el tiempo");
            System.out.println(Main.ANSI_RED+e.getMessage()+Main.ANSI_RESET);
 
