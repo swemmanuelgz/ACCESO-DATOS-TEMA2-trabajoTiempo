@@ -101,7 +101,7 @@ public class TiempoRepository {
 
             //System.out.println(Main.ANSI_BLUE+"JSON del tiempo: "+weatherRoot+Main.ANSI_RESET);
             JsonNode variables = weatherRoot.path("features").path(0).path("properties").path("days").path(0).path("variables");
-            System.out.println(Main.ANSI_BLUE+"\nVariables: "+variables+Main.ANSI_RESET);
+            //System.out.println(Main.ANSI_BLUE+"\nVariables: "+variables+Main.ANSI_RESET);
         
             // Ajustar las claves según la respuesta real de la API
             
@@ -122,7 +122,7 @@ public class TiempoRepository {
                         // Tomar el primer valor disponible
                         String valor = values.get(0).path("value").asText("No disponible");
                         if (nombreVariable.equals("wind")) {
-                            valor = values.get(0).path("directionValue").asText("No disponible");
+                            valor = values.get(0).path("moduleValue").asText("No disponible");
                         }
                         System.out.println(Main.ANSI_BLUE + "Valor de la variable '" + nombreVariable + "': " + valor + Main.ANSI_RESET);
                        
