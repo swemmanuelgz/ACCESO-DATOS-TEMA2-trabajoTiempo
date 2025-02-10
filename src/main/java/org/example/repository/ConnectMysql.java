@@ -1,12 +1,13 @@
 package org.example.repository;
 
-import org.example.Main;
-import org.example.model.Tiempo;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import org.example.Main;
+import org.example.model.Tiempo;
 
 public class ConnectMysql {
     //clase para conexcion jdbc
@@ -75,7 +76,44 @@ public class ConnectMysql {
             throw new RuntimeException(e);
         }
     }
-    //metodo que coge json como parametro y lo inserta en la columna de meteojson en formato json
+    public void deleteDatosTiempo(){
+        String queryDelete = "DELETE FROM tiempo";
+        try {
+            Connection conexion = conectar();
+            PreparedStatement preparedStatement = conexion.prepareStatement(queryDelete);
+            preparedStatement.executeUpdate();
+            System.out.println(Main.ANSI_GREEN+" Eliminando datos de tiempo: "+Main.ANSI_RESET);
+            conexion.close();
+        } catch (SQLException e) {
+            System.out.println(Main.ANSI_RED+e+Main.ANSI_RESET);
+        }
+    
+    }
+    public Tiempo getTiempo(String ciudad){
+       String query = "SELECT * FROM tiempo WHERE localidad = ?";
+         Tiempo tiempo = null;
+        try {
+            Connection connection = conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, ciudad);
+            ResultSet resultset = preparedStatement.executeQuery();
+            //si hay resultados
+            if (resultset.next()) {
+                String localidad = resultset.getString("localidad");
+                String estadoCielo = resultset.getString("estado_cielo");
+                String temperatura = resultset.getString("temperatura");
+                String viento = resultset.getString("viento");
+                String humedad = resultset.getString("humedad");
+                String coberturaNubosa = resultset.getString("cobertura_nubosa");
+                tiempo = new Tiempo(localidad, estadoCielo, temperatura, viento, humedad, coberturaNubosa);
+                return tiempo;
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return tiempo;
+    }
 
 
 }

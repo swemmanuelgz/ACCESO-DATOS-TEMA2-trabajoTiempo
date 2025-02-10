@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import org.example.Main;
 import org.example.model.Tiempo;
@@ -18,7 +19,11 @@ public class TiempoRepository {
     private static final String FIND_PLACE_URL = "https://servizos.meteogalicia.gal/apiv4/findPlaces?location=";
     private static final String WEATHER_URL = "https://servizos.meteogalicia.gal/apiv4/getNumericForecastInfo";
     private static final String API_KEY = "MWXPF8V59rh5BX8G983Bj4aWCm08aalDegD98fIKni4C2lK5jJnMIhA11lbde1MF";
-
+    private ConnectMysql connect = new ConnectMysql();
+        //metodo conseguir tiempo sql
+        public Tiempo getTiempoSql(String tiempoName) throws Exception {
+            return connect.getTiempo(tiempoName);
+        }
         //Metodo para conseguir el Tiempo
         public Tiempo getTiempo(String location) throws Exception {
             // Endpoint para buscar el ID de la localidad
@@ -137,9 +142,30 @@ public class TiempoRepository {
             return "No disponible";
         }
         
-        public void updateTiempoSql(){
-                String [] ciudades = {"coru","Lugo","Ourense","Pontevedra","Vigo","Santiago","Ferror"};
+        public void updateAllTiempoSql() throws Exception{
+                String [] ciudades = {"coru","Lugo","Ourense","Pontevedra","Vigo","Santiago","Ferrol"};
+                ArrayList <Tiempo> tiemposDatos = new ArrayList<>();
+                //Borramos los datos de sql
+                connect.deleteDatosTiempo();
+
+                //bucle para coger los datos de las ciudades 
+                for (int i = 0; i < ciudades.length; i++) {
+                  Tiempo tiempo =  getTiempo(ciudades[i]);
+                  tiemposDatos.add(tiempo);
+                }
+                
+                System.out.println(Main.ANSI_BLUE+"Tiempos añadidos al arraylist"+Main.ANSI_RESET);
+
+                //Buble para meter los tiempos en la base de datos
+                for (int i = 0; i < tiemposDatos.size(); i++) {
+                    //hacemos un insert con cada tiempo
+                    connect.insertTiempo(tiemposDatos.get(i));
+                }
+                
+
         }
+      
+
         
  }
     
