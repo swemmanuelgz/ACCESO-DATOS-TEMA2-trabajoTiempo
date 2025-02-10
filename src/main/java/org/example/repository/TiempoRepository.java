@@ -48,6 +48,8 @@ public class TiempoRepository {
             // Parsear JSON de búsqueda de localidad
             ObjectMapper mapper = new ObjectMapper();
             JsonNode findPlaceRoot = mapper.readTree(findPlaceResponse.toString());
+
+
             //System.out.println(Main.ANSI_BLUE+"JSON de búsqueda de localidad: "+findPlaceRoot+Main.ANSI_RESET);
             JsonNode places = findPlaceRoot.path("features");
 
@@ -133,6 +135,10 @@ public class TiempoRepository {
             // Si no encuentra la variable, retorna un error
             System.out.println(Main.ANSI_RED + "Variable '" + nombreVariable + "' no encontrada o sin valores." + Main.ANSI_RESET);
             return "No disponible";
+        }
+        
+        public void updateTiempoSql(){
+                String [] ciudades = {"coru","Lugo","Ourense","Pontevedra","Vigo","Santiago","Ferror"};
         }
         
  }

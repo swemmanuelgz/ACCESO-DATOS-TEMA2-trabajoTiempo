@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import org.example.generators.CsvGenerator;
 import org.example.model.Tiempo;
+import org.example.repository.ConnectMysql;
 import org.example.repository.TiempoRepository;
 
 /**
@@ -260,8 +261,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void btnDescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarActionPerformed
         //Generamos el CSV en base al ArrayList
         CsvGenerator generador = new CsvGenerator();
+        ConnectMysql connectMysql = new ConnectMysql();
+
         try {
             generador.generateCSV(listTiempo, "Datos_Climas.csv");
+            for (Tiempo tiempo : listTiempo) {
+                connectMysql.insertTiempo(tiempo);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

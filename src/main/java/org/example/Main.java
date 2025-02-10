@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.repository.ConnectMysql;
 import org.example.view.PantallaPrincipal;
 
 public class Main {
@@ -14,6 +15,7 @@ public class Main {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
     public static void main(String[] args) {
+
         
         PantallaPrincipal pantalla = new PantallaPrincipal();
         pantalla.setVisible(true);
