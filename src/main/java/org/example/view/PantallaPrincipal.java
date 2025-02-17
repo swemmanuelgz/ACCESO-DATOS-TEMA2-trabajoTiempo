@@ -235,7 +235,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         TiempoRepository tiempoRepository = new TiempoRepository();
 
         // Obtener la información del tiempo para la ciudad seleccionada
-        Tiempo tiempo = tiempoRepository.getTiempo(selectedCity);
+        Tiempo tiempo = tiempoRepository.getTiempoSql(selectedCity);
         // Agregar la información al ArrayList
         listTiempo.add(tiempo);
 

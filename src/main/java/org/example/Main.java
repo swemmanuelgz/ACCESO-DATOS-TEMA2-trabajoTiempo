@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.repository.ConnectMysql;
+import org.example.repository.TiempoRepository;
 import org.example.view.PantallaPrincipal;
 
 public class Main {
@@ -14,9 +14,10 @@ public class Main {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
-        
+        TiempoRepository tiempoRepository = new TiempoRepository();
+        tiempoRepository.updateAllTiempoSql();
         PantallaPrincipal pantalla = new PantallaPrincipal();
         pantalla.setVisible(true);
         pantalla.setLocationRelativeTo(null);
