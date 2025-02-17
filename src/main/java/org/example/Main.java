@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.repository.ConnectMysql;
 import org.example.repository.ConnectSQLite;
 import org.example.repository.TiempoRepository;
 import org.example.view.PantallaPrincipal;
@@ -18,8 +19,10 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         TiempoRepository tiempoRepository = new TiempoRepository();
-      //  ConnectSQLite mysqLite = new ConnectSQLite();
-      //  mysqLite.createDatabase();
+        ConnectMysql conectar = new ConnectMysql();
+        ConnectSQLite mysqLite = new ConnectSQLite();
+        mysqLite.createDatabase();
+        conectar.createDatabase();
 
         tiempoRepository.updateAllTiempoSql();
         PantallaPrincipal pantalla = new PantallaPrincipal();
